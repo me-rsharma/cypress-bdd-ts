@@ -1,0 +1,40 @@
+{
+  "name": "gianni-bruno-bdd",
+  "version": "1.0.0",
+  "description": "A behavior driven developement based test automation framework",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "open": "npx cypress open",
+    "smoke:run:headless": "npx cypress run --env version='production',TAGS='@smoke'",
+    "headed:run": "npx cypress run --headed",
+    "regression:run:headless": "npx cypress run --env version='production',TAGS='@regression'",
+    "run:test:report": "npm run report:clean && npm run all:run && npm run report || npm run report",
+    "all:run": "npx cypress run --env version=production --spec cypress/e2e/features/*.feature",
+    "spec:run": "cross-env-shell npx cypress run --env version='production' --spec $SPEC",
+    "spec:positive:run": "cross-env-shell npx cypress run --env version='production',TAGS='@positive' --spec $SPEC",
+    "report": "node cucumber.report.conf.js",
+    "report:clean": "rimraf cypress/reports"
+  },
+  "keywords": [
+    "Cypress",
+    "Javascript",
+    "BDD"
+  ],
+  "author": "rsharma",
+  "license": "ISC",
+  "dependencies": {
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.3",
+    "@types/lodash": "^4.17.9",
+    "cypress": "^13.15.0",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.1.2",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "@types/cypress-cucumber-preprocessor": "^4.0.5",
+    "cross-env": "^7.0.3",
+    "multiple-cucumber-html-reporter": "^3.7.0",
+    "ts-node": "^10.9.2"
+  }
+}
